@@ -31,6 +31,15 @@ async function findTransactionByOrderId(orderid) {
   return rows[0];
 }
 
+
+async function findByUserId(userId) {
+  const [rows] = await db.query(
+    `SELECT * FROM transactions WHERE user_id = ? ORDER BY created_at DESC`,
+    [userId]
+  );
+  return rows;
+}
+
 async function updateTransaction(orderid, updates) {
   const fields = [];
   const values = [];
@@ -50,4 +59,5 @@ module.exports = {
   createTransaction,
   findTransactionByOrderId,
   updateTransaction,
+  findByUserId,
 };
